@@ -3,6 +3,13 @@ import {IsBase64, IsEnum} from 'class-validator';
 import 'reflect-metadata';
 import {User} from "./User";
 import {Purpose} from "../helpers/Token";
+import {AuthorisationTokenPayload} from "../helpers/AuthorisationToken";
+
+export const ShortTokenExceptions: string[] = [
+  'ShortTokenInvalid',
+  'ShortTokenExpired',
+  'ShortTokenWrongPurpose'
+];
 
 @Entity()
 export class ShortToken extends BaseEntity {
@@ -33,20 +40,6 @@ export class ShortToken extends BaseEntity {
   })
   created_at: Date;
 
-  // Queries
-
-  static GetValidToken(token: string): Promise<any> {
-    return getRepository(ShortToken)
-      .createQueryBuilder('st')
-      .select()
-      .where('st = :token', {token})
-      .andWhere('st.expire_at < NOW()')
-      .orderBy({
-        'st.created_at': "DESC"
-      })
-      .getOne();
-  }
-
   // Static
 
   static Generate(): string {
@@ -61,5 +54,31 @@ export class ShortToken extends BaseEntity {
     token = token.substr(0, 4) + '-' + token.substr(4);
 
     return token;
+  }
+
+  static async Verify(token: string, purpose: Purpose) {
+    const st = await ShortToken.findOne({
+      where: {
+        token
+      },
+      order: {
+        created_at: 'DESC'
+      },
+      relations: ['user']
+    });
+
+    if (!st) {
+      throw new Error('ShortTokenInvalid');
+    }
+
+    if (new Date().getTime() > st.expire_at.getTime()) {
+      throw new Error('ShortTokenExpired');
+    }
+
+    if (st.purpose !== purpose) {
+      throw new Error('ShortTokenWrongPurpose');
+    }
+
+    return st.user.id;
   }
 }

@@ -1,0 +1,11 @@
+{
+  "restartable": "rs",
+  "verbose": true,
+  "delay": "1500",
+  "watch": [
+    "./built/"
+  ],
+  "env": {
+    "NODE_ENV": "development"
+  }
+}

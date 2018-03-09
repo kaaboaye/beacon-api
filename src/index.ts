@@ -5,7 +5,7 @@ import {any} from "joi";
 import {ApplicationState} from "hapi";
 import 'reflect-metadata';
 
-console.log(`Starting`);
+console.log(`Starting app`);
 
 // ##### DISABLED #####
 // // Catch unhandling unexpected exceptions

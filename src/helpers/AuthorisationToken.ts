@@ -9,6 +9,13 @@ export interface AuthorisationTokenPayload {
   ExpirationDate: Date
 }
 
+export const AuthorisationTokenExceptions: string[] = [
+  'AuthorisationTokenIncorrectFormat',
+  'AuthorisationTokenInvalid',
+  'AuthorisationTokenExpired',
+  'AuthorisationTokenWrongPurpose'
+];
+
 export class AuthorisationToken {
   static Generate(payload: AuthorisationTokenPayload): string {
     const data: string = Buffer.from(JSON.stringify(payload)).toString('base64');
@@ -17,16 +24,32 @@ export class AuthorisationToken {
     return `${data}.${signature}`;
   }
 
-  static Verify(token: string) {
+  static Verify(token: string, purpose: Purpose): AuthorisationTokenPayload {
     const [data, signature, more] = token.split('.');
 
     if (!data || !signature || more) {
       throw new Error('AuthorisationTokenIncorrectFormat');
     }
 
-    const check = this.getSignature(data);
+    // Check the signature
+    if (this.getSignature(data) !== signature) {
+      throw new Error('AuthorisationTokenInvalid');
+    }
 
-    return signature == check;
+    // Get payload
+    const payload = JSON.parse(Buffer.from(data, 'base64').toString()) as AuthorisationTokenPayload;
+
+    // Check if expired
+    if (new Date().getTime() > new Date(payload.ExpirationDate).getTime()) {
+      throw new Error('AuthorisationTokenExpired');
+    }
+
+    // Check purpose
+    if (purpose !== payload.Purpose) {
+      throw new Error('AuthorisationTokenWrongPurpose');
+    }
+
+    return payload;
   }
 
   static GetPayload(token: string): AuthorisationTokenPayload {
