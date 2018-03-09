@@ -6,9 +6,6 @@ import {
 } from "../helpers/AuthorisationToken";
 import {ShortToken, ShortTokenExceptions} from "../entity/ShortToken";
 import {Purpose, Type} from "../helpers/Token";
-import {SessionToken} from "../helpers/SessionToken";
-import {compile} from "joi";
-import {methodNotAllowed} from "boom";
 
 const Sessions = [];
 const path = '/sessions';
@@ -17,8 +14,7 @@ Sessions.push({
   path,
   method: 'get',
   handler: async (request, h) => {
-    const s = await Session
-      .findOneById(1, { relations: ['user']});
+    const s = await Session.find();
 
     return s;
   }
@@ -27,6 +23,9 @@ Sessions.push({
 Sessions.push({
   path: path + '/new',
   method: 'post',
+  options: {
+    auth: false
+  },
   handler: async (request, h) => {
     try {
       // Check if there is any payload
@@ -89,6 +88,9 @@ Sessions.push({
 Sessions.push({
   path: path + '/new',
   method: 'put',
+  options: {
+    auth: false
+  },
   handler: async (request, h) => {
     try {
       // Check if there is any payload
@@ -115,7 +117,7 @@ Sessions.push({
         }
 
         default:
-          throw new Error('NoToken');
+          throw new Error('BadTokenType');
       }
 
       // Set up the session
@@ -124,7 +126,7 @@ Sessions.push({
     catch (e) {
       const handler: string[] = [
         'NoPayload',
-        'NoToken',
+        'BadTokenType',
         ...AuthorisationTokenExceptions,
         ...ShortTokenExceptions
       ];
@@ -145,6 +147,9 @@ Sessions.push({
 Sessions.push({
   path: path + '/auth/{token}',
   method: 'get',
+  options: {
+    auth: false
+  },
   handler: async (request, h) => {
     try {
       const {token} = request.params;

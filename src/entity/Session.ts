@@ -3,6 +3,7 @@ import {IsBase64} from 'class-validator';
 import 'reflect-metadata';
 import {User} from "./User";
 import {SessionToken} from "../helpers/SessionToken";
+import Config from "../Config";
 
 @Entity()
 export class Session extends BaseEntity {
@@ -32,8 +33,8 @@ export class Session extends BaseEntity {
 
   static async SetUp(userId: number, expire_at?: Date) {
     if (!expire_at) {
-      expire_at = new Date(); // Session expires after 90 days
-      expire_at.setDate(expire_at.getDate() + 90);
+      expire_at = new Date(); // Session expires after X days
+      expire_at.setDate(expire_at.getDate() + Config.sessionTime);
     }
 
     const token = SessionToken.Generate();

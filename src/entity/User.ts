@@ -3,6 +3,7 @@ import {IsAlpha, IsAlphanumeric, IsEmail, IsEnum, IsMobilePhone, Length} from 'c
 import 'reflect-metadata';
 import {Session} from "./Session";
 import {Beacon} from "./Beacon";
+import {ShortToken} from "./ShortToken";
 
 export enum Rank {
   User
@@ -64,6 +65,9 @@ export class User extends BaseEntity {
 
   @OneToMany(type => Session, sessions => sessions.user)
   sessions: Session[];
+
+  @OneToMany(type => ShortToken, short_token => short_token.user)
+  short_tokens: ShortToken[];
 
   @OneToMany(type => Beacon, beacon => beacon.owner)
   beacons: Beacon[];
