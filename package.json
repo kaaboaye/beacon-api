@@ -4,21 +4,22 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "debug": "nodemon --watch built ./built/index.js"
   },
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "hapi": "^17.2.1",
-    "hapi-auth-basic": "^5.0.0",
-    "knex": "^0.14.4",
-    "moment": "^2.21.0",
-    "objection": "^1.0.0",
-    "pg": "^7.4.1"
-  },
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-preset-env": "^1.6.1"
+    "@types/hapi": "^17.0.4",
+    "tslint": "^5.9.1",
+    "typescript": "^2.7.2"
+  },
+  "dependencies": {
+    "@types/node": "^9.4.6",
+    "class-validator": "^0.8.1",
+    "hapi": "^17.2.1",
+    "pg": "^7.4.1",
+    "reflect-metadata": "^0.1.12",
+    "typeorm": "^0.1.14"
   }
 }
