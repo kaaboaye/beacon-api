@@ -1,0 +1,269 @@
+{
+	"info": {
+		"name": "beacon-api",
+		"_postman_id": "ce97ec0b-70db-4856-b1d2-1185ed95aa00",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"description": null,
+			"item": [
+				{
+					"name": "/users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{url}}/users",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "/users",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"franek2001plXd\",\n\t\"mail\": \"fajny.franek@wp.pl\",\n\t\"name\": \"Franek\",\n\t\"last_name\": \"Gawczynski\",\n\t\"phone_number\": \"8432290217\"\n}"
+						},
+						"url": {
+							"raw": "{{url}}/users",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Sessions",
+			"description": null,
+			"item": [
+				{
+					"name": "/sessions",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{url}}/sessions",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"sessions"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "/sessions/new",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"login\": \"franek2001plXd\"\n}"
+						},
+						"url": {
+							"raw": "{{url}}/sessions/new",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"sessions",
+								"new"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "/session/new",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"type\": 2,\n\t\"token\": \"3026-2834\"\n}"
+						},
+						"url": {
+							"raw": "{{url}}/sessions/new",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"sessions",
+								"new"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "/sessions/auth/{token}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{url}}/sessions/auth/:token",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"sessions",
+								"auth",
+								":token"
+							],
+							"variable": [
+								{
+									"key": "token",
+									"value": "eyJVc2Vy.eSWQiOjEsIlB1cnBvc2UiOjAsIkV4cGlyYXRpb25EYXRlIjoiMjAxOC0wMy0wOVQxMjowMDoxNy42OTNaIn0%3D.XN%2BaX2Y4K4SAZpEeWONnwAkXQ%2Bt19xqMWi4NZhf1Y49jYOnbYOeiWOMvX1FjWitr%2FBHpB7RxnQTIRBoZ1Tez4A%3D%3D"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Beacons",
+			"description": null,
+			"item": [
+				{
+					"name": "/beacons",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{url}}/beacons",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"beacons"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "/beacons",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Nazwa\",\n\t\"description\": \"Opis\"\n}"
+						},
+						"url": {
+							"raw": "{{url}}/beacons",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"beacons"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "cSlk7hyjj3hlwrh+LcgXBpDFSBTy43SZTSYpz7kPjgjPWg17px+VkzmwztqZbiyTlDVs87NmQBoiNnWAJO+Y6g==",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "502c218c-7c28-4305-8825-e60f473351ed",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "6f5ff759-2a90-4fe5-a7b3-8701715add37",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "922f6ba3-d980-4524-9f65-8a8575040f90",
+			"key": "url",
+			"value": "http://localhost:3001/api",
+			"type": "text",
+			"description": ""
+		}
+	]
+}
