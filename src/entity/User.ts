@@ -4,6 +4,7 @@ import 'reflect-metadata';
 import {Session} from "./Session";
 import {Beacon} from "./Beacon";
 import {ShortToken} from "./ShortToken";
+import {BeaconLocation} from "./BeaconLocation";
 
 export enum Rank {
   User
@@ -71,6 +72,9 @@ export class User extends BaseEntity {
 
   @OneToMany(type => Beacon, beacon => beacon.owner)
   beacons: Beacon[];
+
+  @OneToMany(type => BeaconLocation, location => location.reporter)
+  beacon_locations: BeaconLocation[];
 
   // Queries
 

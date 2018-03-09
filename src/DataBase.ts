@@ -3,6 +3,7 @@ import {User} from "./entity/User";
 import {Session} from "./entity/Session";
 import {ShortToken} from "./entity/ShortToken";
 import {Beacon} from "./entity/Beacon";
+import {BeaconLocation} from "./entity/BeaconLocation";
 
 export const ConnectionConfig: ConnectionOptions = {
   type: "postgres",
@@ -17,6 +18,7 @@ export const ConnectionConfig: ConnectionOptions = {
     User,
     Session,
     ShortToken,
-    Beacon
+    Beacon,
+    BeaconLocation
   ]
 };

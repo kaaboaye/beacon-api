@@ -1,6 +1,7 @@
-import {Entity, PrimaryGeneratedColumn, Column, BaseEntity, ManyToOne, JoinColumn} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column, BaseEntity, ManyToOne, JoinColumn, OneToMany} from "typeorm";
 import 'reflect-metadata';
 import {User} from "./User";
+import {BeaconLocation} from "./BeaconLocation";
 
 @Entity()
 export class Beacon extends BaseEntity {
@@ -22,4 +23,9 @@ export class Beacon extends BaseEntity {
     type: 'timestamp'
   })
   created_at: Date;
+
+  // Relations
+
+  @OneToMany(type => BeaconLocation, location => location.beacon)
+  locations: BeaconLocation[];
 }

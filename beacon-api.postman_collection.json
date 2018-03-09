@@ -127,7 +127,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"type\": 2,\n\t\"token\": \"3026-2834\"\n}"
+							"raw": "{\n\t\"type\": 2,\n\t\"token\": \"2588-0191\"\n}"
 						},
 						"url": {
 							"raw": "{{url}}/sessions/new",
@@ -176,6 +176,75 @@
 			"name": "Beacons",
 			"description": null,
 			"item": [
+				{
+					"name": "Locations",
+					"description": null,
+					"item": [
+						{
+							"name": "/beacons/{beaconId}/locations",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {},
+								"url": {
+									"raw": "{{url}}/beacons/:beaconID/locations",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"beacons",
+										":beaconID",
+										"locations"
+									],
+									"variable": [
+										{
+											"key": "beaconID",
+											"value": "1"
+										}
+									]
+								},
+								"description": ""
+							},
+							"response": []
+						},
+						{
+							"name": "/beacons/{beaconId}/locations",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"x\": 100,\n\t\"y\": 155\n}"
+								},
+								"url": {
+									"raw": "{{url}}/beacons/:beaconID/locations",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"beacons",
+										":beaconID",
+										"locations"
+									],
+									"variable": [
+										{
+											"key": "beaconID",
+											"value": "1"
+										}
+									]
+								},
+								"description": ""
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
 				{
 					"name": "/beacons",
 					"request": {
@@ -230,7 +299,7 @@
 		"bearer": [
 			{
 				"key": "token",
-				"value": "cSlk7hyjj3hlwrh+LcgXBpDFSBTy43SZTSYpz7kPjgjPWg17px+VkzmwztqZbiyTlDVs87NmQBoiNnWAJO+Y6g==",
+				"value": "PYCKSM28xnpU3Hs+8QG3SbYQb1C/iBOVfCRB349MNyb0vSfehSdOLax1MjjZsEUB4gglLTjBlJCA2PSqh1LNOA==",
 				"type": "string"
 			}
 		]
@@ -259,7 +328,7 @@
 	],
 	"variable": [
 		{
-			"id": "922f6ba3-d980-4524-9f65-8a8575040f90",
+			"id": "5b50ac54-a33a-49ba-a9b0-9437f49b85ee",
 			"key": "url",
 			"value": "http://localhost:3001/api",
 			"type": "text",

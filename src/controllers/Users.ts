@@ -17,49 +17,52 @@ Users.push({
 });
 
 Users.push({
-    path,
-    method: 'post',
-    handler: async (request, h) => {
-      try {
-        if (!request.payload) {
-          return {
-            error: {
-              name: 'NoPayload'
-            }
+  path,
+  method: 'post',
+  options: {
+    auth: false
+  },
+  handler: async (request, h) => {
+    try {
+      if (!request.payload) {
+        return {
+          error: {
+            name: 'NoPayload'
           }
         }
-        const {username, mail, name, last_name, phone_number} = request.payload;
-
-        const u = new User();
-        u.username = username;
-        u.mail = mail;
-        u.name = name;
-        u.last_name = last_name;
-        u.phone_number = phone_number;
-        u.rank = Rank.User;
-
-        const err = await validate(u);
-        if (err.length > 0) {
-          return {err};
-        }
-
-        await u.save();
-        return {id: u.id};
       }
-      catch (err) {
-        switch (err.name) {
-          case 'QueryFailedError': {
-            const {name, message, detail} = err;
+      const {username, mail, name, last_name, phone_number} = request.payload;
 
-            return {
-              error: {name, message, detail}
-            }
-          }
-        }
+      const u = new User();
+      u.username = username;
+      u.mail = mail;
+      u.name = name;
+      u.last_name = last_name;
+      u.phone_number = phone_number;
+      u.rank = Rank.User;
 
-        throw err;
+      const err = await validate(u);
+      if (err.length > 0) {
+        return {err};
       }
+
+      await u.save();
+      return {id: u.id};
     }
+    catch (err) {
+      switch (err.name) {
+        case 'QueryFailedError': {
+          const {name, message, detail} = err;
+
+          return {
+            error: {name, message, detail}
+          }
+        }
+      }
+
+      throw err;
+    }
+  }
 });
 
 export default Users;
