@@ -10,7 +10,7 @@ export const ConnectionConfig: ConnectionOptions = {
   host: "beaconsocialdb.postgres.database.azure.com",
   username: "mieszko@beaconsocialdb",
   password: "Zxcvbnm123",
-  database: "mieszko@beaconsocialdb",
+  database: "postgres",
   port: 5432,
   ssl: true,
   synchronize: true,
