@@ -35,7 +35,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var Hapi = require("Hapi");
+var Hapi = require("hapi");
 var Config_1 = require("./Config");
 var controllers_1 = require("./controllers");
 var Session_1 = require("./entity/Session");
