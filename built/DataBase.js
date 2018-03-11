@@ -7,12 +7,12 @@ var Beacon_1 = require("./entity/Beacon");
 var BeaconLocation_1 = require("./entity/BeaconLocation");
 exports.ConnectionConfig = {
     type: "postgres",
-    host: "beaconsocialdb.postgres.database.azure.com",
-    username: "mieszko@beaconsocialdb",
-    password: "Zxcvbnm123",
+    host: "h.kaye.ovh",
+    username: "postgres",
+    password: "mysecretpassword",
     database: "postgres",
-    port: 5432,
-    ssl: true,
+    port: 32768,
+    ssl: false,
     synchronize: true,
     logging: true,
     entities: [
@@ -23,4 +23,22 @@ exports.ConnectionConfig = {
         BeaconLocation_1.BeaconLocation
     ]
 };
+// export const ConnectionConfig: ConnectionOptions = {
+//   type: "postgres",
+//   host: "beaconsocialdb.postgres.database.azure.com",
+//   username: "mieszko@beaconsocialdb",
+//   password: "Zxcvbnm123",
+//   database: "postgres",
+//   port: 5432,
+//   ssl: true,
+//   synchronize: true,
+//   logging: true,
+//   entities: [
+//     User,
+//     Session,
+//     ShortToken,
+//     Beacon,
+//     BeaconLocation
+//   ]
+// };
 //# sourceMappingURL=DataBase.js.map
