@@ -8,10 +8,11 @@ import {BeaconLocation} from "./entity/BeaconLocation";
 export const ConnectionConfig: ConnectionOptions = {
   type: "postgres",
   host: "beaconsocialdb.postgres.database.azure.com",
-  username: "mieszko",
+  username: "mieszko@beaconsocialdb",
   password: "Zxcvbnm123",
   database: "mieszko@beaconsocialdb",
-  port: 32000,
+  port: 5432,
+  ssl: true,
   synchronize: true,
   logging: true,
   entities: [
