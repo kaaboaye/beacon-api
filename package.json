@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node ./built/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "debug": "nodemon ./built/index.js",
     "debug_node": "kill `lsof -ti tcp:3001`; node ./built/index.js"
