@@ -37,16 +37,47 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 var BeaconLocation_1 = require("../entity/BeaconLocation");
+var Beacon_1 = require("../entity/Beacon");
 var BeaconsLocations = [];
 var path = '/beacons/{beaconId}/locations';
 BeaconsLocations.push({
     path: path,
     method: 'get',
     handler: function (request, h) { return __awaiter(_this, void 0, void 0, function () {
+        var user, beaconId, beacon, e_1, handler;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, BeaconLocation_1.BeaconLocation.find()];
-                case 1: return [2 /*return*/, _a.sent()];
+                case 0:
+                    _a.trys.push([0, 2, , 3]);
+                    user = request.auth.credentials.user;
+                    beaconId = request.params.beaconId;
+                    return [4 /*yield*/, Beacon_1.Beacon.findOneById(beaconId, {
+                            where: {
+                                id: beaconId,
+                                owner: user.id
+                            },
+                            relations: ['locations']
+                        })];
+                case 1:
+                    beacon = _a.sent();
+                    if (!beacon) {
+                        throw new Error('UserDoesNotOwnSuchBeacon');
+                    }
+                    return [2 /*return*/, beacon.locations];
+                case 2:
+                    e_1 = _a.sent();
+                    handler = [
+                        'UserDoesNotOwnSuchBeacon'
+                    ];
+                    if (handler.includes(e_1.message)) {
+                        return [2 /*return*/, {
+                                error: {
+                                    message: e_1.message
+                                }
+                            }];
+                    }
+                    throw e_1;
+                case 3: return [2 /*return*/];
             }
         });
     }); }
@@ -55,7 +86,7 @@ BeaconsLocations.push({
     path: path,
     method: 'post',
     handler: function (request, h) { return __awaiter(_this, void 0, void 0, function () {
-        var beaconId, user, _a, x, y, location, e_1, handler;
+        var beaconId, user, _a, x, y, location, e_2, handler;
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
@@ -76,18 +107,18 @@ BeaconsLocations.push({
                     _b.sent();
                     return [2 /*return*/, location];
                 case 2:
-                    e_1 = _b.sent();
+                    e_2 = _b.sent();
                     handler = [
                         'NoPayload'
                     ];
-                    if (handler.includes(e_1.message)) {
+                    if (handler.includes(e_2.message)) {
                         return [2 /*return*/, {
                                 error: {
-                                    message: e_1.message
+                                    message: e_2.message
                                 }
                             }];
                     }
-                    throw e_1;
+                    throw e_2;
                 case 3: return [2 /*return*/];
             }
         });
