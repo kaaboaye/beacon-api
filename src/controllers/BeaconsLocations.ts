@@ -1,6 +1,7 @@
 import {BeaconLocation} from "../entity/BeaconLocation";
 import {Beacon} from "../entity/Beacon";
 import {Location} from '../helpers/Location';
+import {getRepository} from "typeorm";
 
 const BeaconsLocations = [];
 const path = '/beacons/{beaconId}/locations';
@@ -9,7 +10,39 @@ BeaconsLocations.push({
   path,
   method: 'get',
   handler: async (request, h) => {
-    return await BeaconLocation.find();
+    try {
+      const {user} = request.auth.credentials;
+      const {beaconId} = request.params;
+
+      const beacon = await Beacon.findOneById(beaconId, {
+        where: {
+          id: beaconId,
+          owner: user.id
+        },
+        relations: ['locations']
+      });
+
+      if (!beacon) {
+        throw new Error('UserDoesNotOwnSuchBeacon');
+      }
+
+      return beacon.locations;
+    }
+    catch (e) {
+      const handler: string[] = [
+        'UserDoesNotOwnSuchBeacon'
+      ];
+
+      if (handler.includes(e.message)) {
+        return {
+          error: {
+            message: e.message
+          }
+        };
+      }
+
+      throw e;
+    }
   }
 });
 
