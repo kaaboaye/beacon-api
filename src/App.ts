@@ -1,4 +1,4 @@
-import * as Hapi from 'Hapi';
+import * as Hapi from 'hapi';
 import Config from "./Config";
 import Controllers from './controllers';
 import {Session} from "./entity/Session";
