@@ -6,6 +6,8 @@ import {
 } from "../helpers/AuthorisationToken";
 import {ShortToken, ShortTokenExceptions} from "../entity/ShortToken";
 import {Purpose, Type} from "../helpers/Token";
+import Config from "../Config";
+import {createTransport} from "nodemailer";
 
 const Sessions = [];
 const path = '/sessions';
@@ -35,10 +37,12 @@ Sessions.push({
       const {login} = request.payload;
 
       // Get User ID
-      const user = await User.GetIdByLogin(login);
+      const user = await User.GetByLogin(login);
       if (!user) {
         throw new Error('NoSuchUser');
       }
+
+      console.log(user);
 
       // Generate the tokens
       let expire = new Date();
@@ -58,10 +62,24 @@ Sessions.push({
       shortToken.expire_at = expire;
       await shortToken.save();
 
-      // Send tokens via email. But later
+      const mailer = createTransport({
+        service: 'gmail',
+        auth: {
+          user: 'beacon.society.mailer@gmail.com',
+          pass: '46cb33aa9629024c6d3045fecda87d9d6752e9d8da686a651fb754e2c11f69d2'
+        }
+      });
+
+      mailer.sendMail({
+        from: 'beacon.society.mailer@gmail.com',
+        to: user.mail,
+        subject: `Authorisation Tokens for ${user.username}`,
+        html: `<p><a href="${Config.apiUrl}/sessions/auth/${encodeURIComponent(authToken)}">Click</a></p>
+               <p>or provide following token: <pre>${shortToken.token}</pre></p>`
+          });
 
       return {
-        to_jest_mail: false,
+        to_jest_mail: true,
         AuthorisationToken: authToken,
         ShortToken: shortToken.token
       };

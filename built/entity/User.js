@@ -37,10 +37,10 @@ var User = /** @class */ (function (_super) {
     }
     User_1 = User;
     // Queries
-    User.GetIdByLogin = function (login) {
+    User.GetByLogin = function (login) {
         return typeorm_1.getRepository(User_1)
             .createQueryBuilder('user')
-            .select(['user.id'])
+            .select(['user.id', 'user.mail'])
             .where('user.username = :login', { login: login })
             .orWhere('user.mail = :login', { login: login })
             .getOne();

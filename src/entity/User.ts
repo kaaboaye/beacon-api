@@ -78,10 +78,10 @@ export class User extends BaseEntity {
 
   // Queries
 
-  static GetIdByLogin(login: string): Promise<any> {
+  static GetByLogin(login: string): Promise<any> {
     return getRepository(User)
       .createQueryBuilder('user')
-      .select(['user.id'])
+      .select(['user.id', 'user.mail'])
       .where('user.username = :login', {login})
       .orWhere('user.mail = :login', {login})
       .getOne();

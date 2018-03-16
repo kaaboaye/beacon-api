@@ -41,6 +41,8 @@ var User_1 = require("../entity/User");
 var AuthorisationToken_1 = require("../helpers/AuthorisationToken");
 var ShortToken_1 = require("../entity/ShortToken");
 var Token_1 = require("../helpers/Token");
+var Config_1 = require("../Config");
+var nodemailer_1 = require("nodemailer");
 var Sessions = [];
 var path = '/sessions';
 Sessions.push({
@@ -65,7 +67,7 @@ Sessions.push({
         auth: false
     },
     handler: function (request, h) { return __awaiter(_this, void 0, void 0, function () {
-        var login, user, expire, authToken, shortToken, e_1, handler;
+        var login, user, expire, authToken, shortToken, mailer, e_1, handler;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -75,12 +77,13 @@ Sessions.push({
                         throw new Error('NoPayload');
                     }
                     login = request.payload.login;
-                    return [4 /*yield*/, User_1.User.GetIdByLogin(login)];
+                    return [4 /*yield*/, User_1.User.GetByLogin(login)];
                 case 1:
                     user = _a.sent();
                     if (!user) {
                         throw new Error('NoSuchUser');
                     }
+                    console.log(user);
                     expire = new Date();
                     expire.setMinutes(expire.getMinutes() + 15);
                     authToken = AuthorisationToken_1.AuthorisationToken.Generate({
@@ -97,9 +100,21 @@ Sessions.push({
                     return [4 /*yield*/, shortToken.save()];
                 case 2:
                     _a.sent();
-                    // Send tokens via email. But later
+                    mailer = nodemailer_1.createTransport({
+                        service: 'gmail',
+                        auth: {
+                            user: 'beacon.society.mailer@gmail.com',
+                            pass: '46cb33aa9629024c6d3045fecda87d9d6752e9d8da686a651fb754e2c11f69d2'
+                        }
+                    });
+                    mailer.sendMail({
+                        from: 'beacon.society.mailer@gmail.com',
+                        to: user.mail,
+                        subject: "Authorisation Tokens for " + user.username,
+                        html: "<p><a href=\"" + Config_1.default.apiUrl + "/sessions/auth/" + encodeURIComponent(authToken) + "\">Click</a></p>\n               <p>or provide following token: <pre>" + shortToken.token + "</pre></p>"
+                    });
                     return [2 /*return*/, {
-                            to_jest_mail: false,
+                            to_jest_mail: true,
                             AuthorisationToken: authToken,
                             ShortToken: shortToken.token
                         }];
