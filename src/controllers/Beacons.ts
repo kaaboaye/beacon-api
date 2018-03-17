@@ -18,6 +18,21 @@ Beacons.push({
 });
 
 Beacons.push({
+  path: path + '/locations',
+  method: 'get',
+  handler: async (request, h) => {
+    const {user} = request.auth.credentials;
+
+    return await Beacon.find({
+      where: {
+        owner: user.id
+      },
+      relations: ['locations']
+    });
+  }
+});
+
+Beacons.push({
   path,
   method: 'post',
   handler: async (request, h) => {

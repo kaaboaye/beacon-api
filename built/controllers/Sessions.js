@@ -111,7 +111,7 @@ Sessions.push({
                         from: 'beacon.society.mailer@gmail.com',
                         to: user.mail,
                         subject: "Authorisation Tokens for " + user.username,
-                        html: "<p><a href=\"" + Config_1.default.apiUrl + "/sessions/auth/" + encodeURIComponent(authToken) + "\">Click</a></p>\n               <p>or provide following token: <pre>" + shortToken.token + "</pre></p>"
+                        html: "<p><a href=\"" + Config_1.default.apiUrl + "/sessions/auth/" + encodeURIComponent(authToken) + "\">Click</a></p>\n               <p>or provide following token: " + shortToken.token + "</p>"
                     });
                     return [2 /*return*/, {
                             to_jest_mail: true,

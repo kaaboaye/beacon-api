@@ -75,7 +75,7 @@ Sessions.push({
         to: user.mail,
         subject: `Authorisation Tokens for ${user.username}`,
         html: `<p><a href="${Config.apiUrl}/sessions/auth/${encodeURIComponent(authToken)}">Click</a></p>
-               <p>or provide following token: <pre>${shortToken.token}</pre></p>`
+               <p>or provide following token: ${shortToken.token}</p>`
           });
 
       return {

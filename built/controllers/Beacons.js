@@ -59,6 +59,26 @@ Beacons.push({
     }); }
 });
 Beacons.push({
+    path: path + '/locations',
+    method: 'get',
+    handler: function (request, h) { return __awaiter(_this, void 0, void 0, function () {
+        var user;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    user = request.auth.credentials.user;
+                    return [4 /*yield*/, Beacon_1.Beacon.find({
+                            where: {
+                                owner: user.id
+                            },
+                            relations: ['locations']
+                        })];
+                case 1: return [2 /*return*/, _a.sent()];
+            }
+        });
+    }); }
+});
+Beacons.push({
     path: path,
     method: 'post',
     handler: function (request, h) { return __awaiter(_this, void 0, void 0, function () {
