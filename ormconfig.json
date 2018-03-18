@@ -1,11 +1,10 @@
 {
   "type": "postgres",
-  "host": "beaconsocialdb.postgres.database.azure.com",
-  "username": "mieszko@beaconsocialdb",
-  "password": "Zxcvbnm123",
+  "host": "localhost",
+  "username": "postgres",
+  "password": "mysecretpassword",
   "database": "postgres",
-  "port": 5432,
-  "ssl": true,
+  "port": 32000,
   "synchronize": true,
   "logging": false,
   "entities": [
